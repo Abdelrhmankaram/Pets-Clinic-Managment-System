@@ -3,6 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package pets.and.vet;
+
 import java.awt.*;
 import java.sql.*;
 import java.sql.Connection;
@@ -17,22 +18,26 @@ import javax.swing.JOptionPane;
  *
  * @author abdelrhmankrm
  */
-    public class Login extends javax.swing.JFrame {
-        /**
-         * Creates new form Login
-         */
-        Connection con = null;
-        public Login() {
-            initComponents();
-            try {
-                con = DriverManager.getConnection("jdbc:mysql://localhost:3306/pet_and_vet", "root", "159653");
-                
-            } catch (SQLException ex) {
-                Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
+public class Login extends javax.swing.JFrame {
 
-        public class RoundedBorder extends AbstractBorder {
+    /**
+     * Creates new form Login
+     */
+    Connection con = null;
+
+    public Login() {
+        initComponents();
+        this.setLocationRelativeTo(null);
+        try {
+            con = DriverManager.getConnection("jdbc:mysql://localhost:3306/pet_and_vet", "root", "159653");
+
+        } catch (SQLException ex) {
+            Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public class RoundedBorder extends AbstractBorder {
+
         private final int radius;
 
         public RoundedBorder(int radius) {
@@ -84,7 +89,7 @@ import javax.swing.JOptionPane;
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         username_tf = new javax.swing.JTextField();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        user_cb = new javax.swing.JComboBox<>();
         login_btn = new javax.swing.JButton();
         password_tf = new javax.swing.JTextField();
 
@@ -185,13 +190,13 @@ import javax.swing.JOptionPane;
             }
         });
 
-        jComboBox1.setBackground(new java.awt.Color(34, 130, 116));
-        jComboBox1.setForeground(new java.awt.Color(255, 255, 255));
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Admin", "Doctor", "Receptionist" }));
-        jComboBox1.setBorder(null);
-        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
+        user_cb.setBackground(new java.awt.Color(34, 130, 116));
+        user_cb.setForeground(new java.awt.Color(255, 255, 255));
+        user_cb.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Admin", "Doctor", "Receptionist" }));
+        user_cb.setBorder(null);
+        user_cb.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboBox1ActionPerformed(evt);
+                user_cbActionPerformed(evt);
             }
         });
 
@@ -217,6 +222,10 @@ import javax.swing.JOptionPane;
                 password_tfFocusLost(evt);
             }
         });
+        password_tf.setBorder(new RoundedBorder(10));
+        username_tf.setBorder(new RoundedBorder(10));
+
+        login_btn.setBorder(new RoundedBorder(10));
         password_tf.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 password_tfActionPerformed(evt);
@@ -237,7 +246,7 @@ import javax.swing.JOptionPane;
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(104, 104, 104)
                         .addComponent(login_btn, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jComboBox1, 0, 360, Short.MAX_VALUE)
+                    .addComponent(user_cb, 0, 360, Short.MAX_VALUE)
                     .addComponent(username_tf)
                     .addComponent(password_tf))
                 .addGap(135, 135, 135))
@@ -249,7 +258,7 @@ import javax.swing.JOptionPane;
                 .addGap(74, 74, 74)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(user_cb, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(username_tf, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
@@ -275,13 +284,13 @@ import javax.swing.JOptionPane;
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
+    private void user_cbActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_user_cbActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jComboBox1ActionPerformed
+    }//GEN-LAST:event_user_cbActionPerformed
 
     private void username_tfActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_username_tfActionPerformed
         // TODO add your handling code here:
-        
+
     }//GEN-LAST:event_username_tfActionPerformed
 
     private void username_tfFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_username_tfFocusGained
@@ -296,74 +305,135 @@ import javax.swing.JOptionPane;
 
     private void password_tfActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_password_tfActionPerformed
         // TODO add your handling code here:
-        
+
     }//GEN-LAST:event_password_tfActionPerformed
 
     private void username_tfFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_username_tfFocusLost
         // TODO add your handling code here
         String name = username_tf.getText();
-        if(name.equals(""))username_tf.setText("Username");
+        if (name.equals(""))
+            username_tf.setText("Username");
     }//GEN-LAST:event_username_tfFocusLost
 
     private void login_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_login_btnActionPerformed
         // TODO add your handling code here:
         String name = username_tf.getText();
         String pass = password_tf.getText();
-        if (name.equals("abdalla") && pass.equals("123")){
-            JOptionPane.showMessageDialog(null, "wellcome");
-        }
-            try {
-                con = DriverManager.getConnection("jdbc:mysql://localhost:3306/pet_and_vet", "root", "159653");
-                PreparedStatement stnt = con.prepareStatement("insert into admins(first_name, last_name, pass, age, gender) values('aa', 'bb', '123456789', 50, 'male')");
-                stnt.executeUpdate();
-            } catch (SQLException ex) {
-                Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+        String type = user_cb.getSelectedItem().toString();
+//        System.out.println(type);
+        if (!name.isEmpty() && !pass.isEmpty() && !name.equals("Username") && !pass.equals("Password")) {
+
+            if (type.equals("Admin")) {
+                try {
+                    boolean found = false;
+                    PreparedStatement stnt = con.prepareStatement("select admin_id, username, pass from admins");
+                    ResultSet rs = stnt.executeQuery();
+                    while (rs.next()) {
+                        if (name.equals(rs.getString(2)) && pass.equals(rs.getString(3))) {
+                            admin_window next_window = new admin_window();
+                            this.dispose();
+                            next_window.setVisible(true);
+                            found = true;
+                            break;
+                        }
+                    }
+                    if(!found){
+                        JOptionPane.showMessageDialog(this, "Username or Password Invalid");
+                    }
+                } catch (SQLException ex) {
+                    Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
+
+            if (type.equals("Doctor")) {
+                try {
+                    boolean found = false;
+                    PreparedStatement stnt = con.prepareStatement("select user_id, username, pass from users where user_type = 'Doctor'");
+                    ResultSet rs = stnt.executeQuery();
+                    while (rs.next()) {
+                        if (name.equals(rs.getString(2)) && pass.equals(rs.getString(3))) {
+                            doctor_window next_window = new doctor_window();
+                            this.dispose();
+                            next_window.setVisible(true);
+                            found = true;
+                            break;
+                        }
+                    }
+                    if(!found){
+                        JOptionPane.showMessageDialog(this, "Username or Password Invalid");
+                    }
+                } catch (SQLException ex) {
+                    Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+
+            if (type.equals("Receptionist")) {
+                 try {
+                    boolean found = false;
+                    PreparedStatement stnt = con.prepareStatement("select user_id, username, pass from users where user_type = 'Receptionist'");
+                    ResultSet rs = stnt.executeQuery();
+                    while (rs.next()) {
+                        if (name.equals(rs.getString(2)) && pass.equals(rs.getString(3))) {
+                            receptionist_window next_window = new receptionist_window();
+                            this.dispose();
+                            next_window.setVisible(true);
+                            found = true;
+                            break;
+                        }
+                    }
+                    if(!found){
+                        JOptionPane.showMessageDialog(this, "Username or Password Invalid");
+                    }
+                } catch (SQLException ex) {
+                    Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        }
     }//GEN-LAST:event_login_btnActionPerformed
 
     private void password_tfFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_password_tfFocusLost
         // TODO add your handling code here:
         String pass = password_tf.getText();
-        if(pass.equals(""))password_tf.setText("Password");
+        if (pass.equals(""))
+            password_tf.setText("Password");
     }//GEN-LAST:event_password_tfFocusLost
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+        /**
+         * @param args the command line arguments
          */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
+        public static void main(String args[]) {
+            /* Set the Nimbus look and feel */
+            //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+            /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+             */
+            try {
+                for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                    if ("Nimbus".equals(info.getName())) {
+                        javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                        break;
+                    }
                 }
+            } catch (ClassNotFoundException ex) {
+                java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            } catch (InstantiationException ex) {
+                java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            } catch (IllegalAccessException ex) {
+                java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+                java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
             }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
+            //</editor-fold>
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new Login().setVisible(true);
-            }
-        });
-    }
+            /* Create and display the form */
+            java.awt.EventQueue.invokeLater(new Runnable() {
+                public void run() {
+                    new Login().setVisible(true);
+                }
+            });
+        }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -378,6 +448,7 @@ import javax.swing.JOptionPane;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JButton login_btn;
     private javax.swing.JTextField password_tf;
+    private javax.swing.JComboBox<String> user_cb;
     private javax.swing.JTextField username_tf;
     // End of variables declaration//GEN-END:variables
 }

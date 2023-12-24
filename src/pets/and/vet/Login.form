@@ -78,7 +78,7 @@
                           <EmptySpace min="-2" pref="104" max="-2" attributes="0"/>
                           <Component id="login_btn" min="-2" pref="163" max="-2" attributes="0"/>
                       </Group>
-                      <Component id="jComboBox1" pref="360" max="32767" attributes="0"/>
+                      <Component id="user_cb" pref="360" max="32767" attributes="0"/>
                       <Component id="username_tf" alignment="0" max="32767" attributes="0"/>
                       <Component id="password_tf" alignment="0" max="32767" attributes="0"/>
                   </Group>
@@ -93,7 +93,7 @@
                   <EmptySpace min="-2" pref="74" max="-2" attributes="0"/>
                   <Component id="jLabel1" min="-2" pref="63" max="-2" attributes="0"/>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
-                  <Component id="jComboBox1" min="-2" pref="49" max="-2" attributes="0"/>
+                  <Component id="user_cb" min="-2" pref="49" max="-2" attributes="0"/>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Component id="username_tf" min="-2" pref="49" max="-2" attributes="0"/>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
@@ -249,7 +249,7 @@
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="username_tfActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JComboBox" name="jComboBox1">
+        <Component class="javax.swing.JComboBox" name="user_cb">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="74" green="82" red="22" type="rgb"/>
@@ -269,7 +269,7 @@
             </Property>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jComboBox1ActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="user_cbActionPerformed"/>
           </Events>
           <AuxValues>
             <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
