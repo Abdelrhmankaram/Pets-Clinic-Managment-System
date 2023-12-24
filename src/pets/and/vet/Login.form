@@ -76,7 +76,7 @@
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace min="-2" pref="104" max="-2" attributes="0"/>
-                          <Component id="jButton1" min="-2" pref="163" max="-2" attributes="0"/>
+                          <Component id="login_btn" min="-2" pref="163" max="-2" attributes="0"/>
                       </Group>
                       <Component id="jComboBox1" pref="360" max="32767" attributes="0"/>
                       <Component id="username_tf" alignment="0" max="32767" attributes="0"/>
@@ -99,7 +99,7 @@
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Component id="password_tf" min="-2" pref="47" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
-                  <Component id="jButton1" min="-2" pref="41" max="-2" attributes="0"/>
+                  <Component id="login_btn" min="-2" pref="41" max="-2" attributes="0"/>
                   <EmptySpace pref="147" max="32767" attributes="0"/>
               </Group>
           </Group>
@@ -131,9 +131,9 @@
                   <Group type="102" attributes="0">
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="0" attributes="0">
+                              <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="1" attributes="0">
                                   <Group type="102" attributes="0">
-                                      <EmptySpace min="-2" pref="92" max="-2" attributes="0"/>
                                       <Component id="jLabel4" min="-2" pref="37" max="-2" attributes="0"/>
                                       <EmptySpace min="-2" pref="115" max="-2" attributes="0"/>
                                   </Group>
@@ -275,7 +275,7 @@
             <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
           </AuxValues>
         </Component>
-        <Component class="javax.swing.JButton" name="jButton1">
+        <Component class="javax.swing.JButton" name="login_btn">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="6f" green="77" red="1a" type="rgb"/>
@@ -298,7 +298,7 @@
             </Property>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton1ActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="login_btnActionPerformed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JTextField" name="password_tf">

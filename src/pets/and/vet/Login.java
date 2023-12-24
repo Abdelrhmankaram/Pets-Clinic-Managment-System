@@ -4,6 +4,12 @@
  */
 package pets.and.vet;
 import java.awt.*;
+import java.sql.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.border.AbstractBorder;
 import javax.swing.JOptionPane;
 
@@ -15,8 +21,15 @@ import javax.swing.JOptionPane;
         /**
          * Creates new form Login
          */
+        Connection con = null;
         public Login() {
             initComponents();
+            try {
+                con = DriverManager.getConnection("jdbc:mysql://localhost:3306/pet_and_vet", "root", "159653");
+                
+            } catch (SQLException ex) {
+                Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
 
         public class RoundedBorder extends AbstractBorder {
@@ -72,7 +85,7 @@ import javax.swing.JOptionPane;
         jLabel7 = new javax.swing.JLabel();
         username_tf = new javax.swing.JTextField();
         jComboBox1 = new javax.swing.JComboBox<>();
-        jButton1 = new javax.swing.JButton();
+        login_btn = new javax.swing.JButton();
         password_tf = new javax.swing.JTextField();
 
         jMenuItem1.setText("jMenuItem1");
@@ -122,9 +135,9 @@ import javax.swing.JOptionPane;
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGap(20, 20, 20)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addGap(92, 92, 92)
                                 .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(115, 115, 115))
                             .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -182,16 +195,16 @@ import javax.swing.JOptionPane;
             }
         });
 
-        jButton1.setBackground(new java.awt.Color(26, 119, 111));
-        jButton1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jButton1.setForeground(new java.awt.Color(255, 255, 255));
-        jButton1.setText("Login");
-        jButton1.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        jButton1.setBorderPainted(false);
-        jButton1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        login_btn.setBackground(new java.awt.Color(26, 119, 111));
+        login_btn.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        login_btn.setForeground(new java.awt.Color(255, 255, 255));
+        login_btn.setText("Login");
+        login_btn.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        login_btn.setBorderPainted(false);
+        login_btn.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        login_btn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                login_btnActionPerformed(evt);
             }
         });
 
@@ -223,7 +236,7 @@ import javax.swing.JOptionPane;
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(104, 104, 104)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(login_btn, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jComboBox1, 0, 360, Short.MAX_VALUE)
                     .addComponent(username_tf)
                     .addComponent(password_tf))
@@ -242,7 +255,7 @@ import javax.swing.JOptionPane;
                 .addGap(18, 18, 18)
                 .addComponent(password_tf, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(22, 22, 22)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(login_btn, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(147, Short.MAX_VALUE))
         );
 
@@ -292,14 +305,21 @@ import javax.swing.JOptionPane;
         if(name.equals(""))username_tf.setText("Username");
     }//GEN-LAST:event_username_tfFocusLost
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void login_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_login_btnActionPerformed
         // TODO add your handling code here:
         String name = username_tf.getText();
         String pass = password_tf.getText();
         if (name.equals("abdalla") && pass.equals("123")){
             JOptionPane.showMessageDialog(null, "wellcome");
         }
-    }//GEN-LAST:event_jButton1ActionPerformed
+            try {
+                con = DriverManager.getConnection("jdbc:mysql://localhost:3306/pet_and_vet", "root", "159653");
+                PreparedStatement stnt = con.prepareStatement("insert into admins(first_name, last_name, pass, age, gender) values('aa', 'bb', '123456789', 50, 'male')");
+                stnt.executeUpdate();
+            } catch (SQLException ex) {
+                Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+            }
+    }//GEN-LAST:event_login_btnActionPerformed
 
     private void password_tfFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_password_tfFocusLost
         // TODO add your handling code here:
@@ -343,7 +363,6 @@ import javax.swing.JOptionPane;
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -357,6 +376,7 @@ import javax.swing.JOptionPane;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JButton login_btn;
     private javax.swing.JTextField password_tf;
     private javax.swing.JTextField username_tf;
     // End of variables declaration//GEN-END:variables
