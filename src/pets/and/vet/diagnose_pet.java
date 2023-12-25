@@ -40,14 +40,14 @@ public class diagnose_pet extends javax.swing.JFrame {
         this.pett_id=pet_id;
         this.doctor_id=doctor_id;
         petid_tf.setText(pett_id);
-        fill_table_model();
-       fill_table_model2();
         try {
-           con =  DriverManager.getConnection("jdbc:mysql://localhost:3306/pet_and_vet", "root", "Root123456789@@");
+           con =  DriverManager.getConnection("jdbc:mysql://localhost:3306/pet_and_vet", "root", "root");
 
         } catch (SQLException ex) {
             Logger.getLogger(diagnose_pet.class.getName()).log(Level.SEVERE, null, ex);
         }
+    fill_table_model();
+    fill_table_model2();
     }
     public diagnose_pet() {
     }
@@ -66,18 +66,14 @@ public class diagnose_pet extends javax.swing.JFrame {
         dtm.addColumn("Diagnose");
         dtm.addColumn("Condition");
         dtm.addColumn("Doctor ID");
-        dtm.addColumn("Date");
         dtm.setRowCount(0);
-        d=new Date();
-        SimpleDateFormat smFormat=new SimpleDateFormat("dd/MM/yyyy | hh:mm:ss");
-        String da=String.valueOf(smFormat.format(d));
         try{
           PreparedStatement st= con.prepareStatement("select * from diagnosis");
           ResultSet res=st.executeQuery();
           while(res.next())
           {
               //cl_ids.add(res.getInt());
-              dtm.addRow(new Object[]{res.getInt(1),res.getString(2),res.getString(3),doctor_id,da});
+              dtm.addRow(new Object[]{res.getInt(1),res.getString(2),res.getString(3),doctor_id});
               table2.setModel(dtm);
           }
         }
@@ -131,11 +127,11 @@ public class diagnose_pet extends javax.swing.JFrame {
 
             },
             new String [] {
-                "ID", "Diagnose", "Condition", "Doctor ID", "Date"
+                "ID", "Diagnose", "Condition", "Doctor ID"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false
+                false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -358,9 +354,8 @@ public class diagnose_pet extends javax.swing.JFrame {
 
     private void back_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_back_btnActionPerformed
         // TODO add your handling code here:
-        doctor_window n=new doctor_window();
-        this.dispose();
-        n.setVisible(true);
+new doctor_window(doctor_id).setVisible(true);
+this.dispose();
     }//GEN-LAST:event_back_btnActionPerformed
 
     /**

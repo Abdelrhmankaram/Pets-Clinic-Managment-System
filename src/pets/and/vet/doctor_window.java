@@ -42,7 +42,7 @@ public class doctor_window extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
         this.doctor_id=doc_id;
         try {
-            con = DriverManager.getConnection("jdbc:mysql://localhost:3306/pet_and_vet", "root", "Root123456789@@");
+            con = DriverManager.getConnection("jdbc:mysql://localhost:3306/pet_and_vet", "root", "root");
 
         } catch (SQLException ex) {
             Logger.getLogger(doctor_window.class.getName()).log(Level.SEVERE, null, ex);
@@ -108,7 +108,7 @@ public class doctor_window extends javax.swing.JFrame {
         phone_tf = new javax.swing.JTextField();
         jLabel10 = new javax.swing.JLabel();
         pettype_tf = new javax.swing.JTextField();
-        back_btn = new javax.swing.JButton();
+        bak_btn = new javax.swing.JButton();
         male = new javax.swing.JRadioButton();
         female = new javax.swing.JRadioButton();
 
@@ -216,12 +216,12 @@ public class doctor_window extends javax.swing.JFrame {
             }
         });
 
-        back_btn.setFont(new java.awt.Font("Serif", 1, 18)); // NOI18N
-        back_btn.setForeground(new java.awt.Color(16, 76, 71));
-        back_btn.setText("Back");
-        back_btn.addActionListener(new java.awt.event.ActionListener() {
+        bak_btn.setFont(new java.awt.Font("Serif", 1, 18)); // NOI18N
+        bak_btn.setForeground(new java.awt.Color(16, 76, 71));
+        bak_btn.setText("Back");
+        bak_btn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                back_btnActionPerformed(evt);
+                bak_btnActionPerformed(evt);
             }
         });
 
@@ -255,7 +255,7 @@ public class doctor_window extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 635, Short.MAX_VALUE))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(back_btn))))
+                                .addComponent(bak_btn))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(70, 70, 70)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -310,7 +310,7 @@ public class doctor_window extends javax.swing.JFrame {
                 .addGap(23, 23, 23)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel11)
-                    .addComponent(back_btn, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(bak_btn, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
@@ -368,12 +368,12 @@ public class doctor_window extends javax.swing.JFrame {
         next_w.setVisible(true);
     }//GEN-LAST:event_view_logs_btnActionPerformed
 
-    private void back_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_back_btnActionPerformed
+    private void bak_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bak_btnActionPerformed
         // TODO add your handling code here:
         Login next_window = new Login();
         this.dispose();
         next_window.setVisible(true);
-    }//GEN-LAST:event_back_btnActionPerformed
+    }//GEN-LAST:event_bak_btnActionPerformed
 
     private void tableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableMouseClicked
         DefaultTableModel obj=(DefaultTableModel) table.getModel();
@@ -450,7 +450,7 @@ public class doctor_window extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField age_tf;
-    private javax.swing.JButton back_btn;
+    private javax.swing.JButton bak_btn;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JTextField color_tf;
     private javax.swing.JButton diagnose_btn;
