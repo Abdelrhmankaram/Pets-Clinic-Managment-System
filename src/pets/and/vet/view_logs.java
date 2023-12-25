@@ -79,10 +79,10 @@ public class view_logs extends javax.swing.JFrame {
         table = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jTextField4 = new javax.swing.JTextField();
+        ownername_tf = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
-        jTextField5 = new javax.swing.JTextField();
-        jTextField6 = new javax.swing.JTextField();
+        id_tf = new javax.swing.JTextField();
+        type_tf = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
         g2 = new javax.swing.JRadioButton();
         g1 = new javax.swing.JRadioButton();
@@ -218,15 +218,15 @@ public class view_logs extends javax.swing.JFrame {
                         .addGroup(jPanel1Layout.createSequentialGroup()
                             .addComponent(jLabel2)
                             .addGap(18, 18, 18)
-                            .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(id_tf, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGap(30, 30, 30)
                             .addComponent(jLabel5)
                             .addGap(18, 18, 18)
-                            .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(ownername_tf, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGap(32, 32, 32)
                             .addComponent(jLabel6)
                             .addGap(18, 18, 18)
-                            .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(type_tf, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(82, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -239,11 +239,11 @@ public class view_logs extends javax.swing.JFrame {
                     .addComponent(pets, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(36, 36, 36)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(id_tf, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2)
-                    .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(ownername_tf, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel5)
-                    .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(type_tf, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel6))
                 .addGap(43, 43, 43)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -281,7 +281,38 @@ public class view_logs extends javax.swing.JFrame {
     }//GEN-LAST:event_g1MouseClicked
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        // TODO add your handling code here:
+        String id = "", owner = "", type = "";
+        if(id_tf.getText().toString().isEmpty()){
+            id = "select pet_id from pets";
+        }
+        else{
+            id = "select pet_id from pets where pet_id = " + id_tf.getText().toString();
+        }
+        
+        if(ownername_tf.getText().toString().isEmpty()){
+            owner = "select owner_id from owners";
+        }
+        else{
+            owner = "select owner_id from owners where first_name = " + ownername_tf.getText().toString();
+        }
+        
+        if(type_tf.getText().toString().isEmpty()){
+            type = "select kind from pets";
+        }
+        else{
+            type = "select kind from pets" + type_tf.getText().toString();
+        }
+        
+        String gender;
+        
+        if(g1.isSelected()){
+            gender = "Male";
+        }
+        else {
+            gender = "Female";
+        }
+        
+//        PreparedStatement st = con.prepareStatement("select p.pet_id, o.first_name, o.phone, p.kind, d.diagnose, p.gender from ")
         
     }//GEN-LAST:event_jButton4ActionPerformed
 
@@ -357,6 +388,7 @@ public class view_logs extends javax.swing.JFrame {
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JRadioButton g1;
     private javax.swing.JRadioButton g2;
+    private javax.swing.JTextField id_tf;
     private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
@@ -367,12 +399,11 @@ public class view_logs extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
-    private javax.swing.JTextField jTextField5;
-    private javax.swing.JTextField jTextField6;
     private javax.swing.JButton modify;
+    private javax.swing.JTextField ownername_tf;
     private javax.swing.JButton pets;
     private java.awt.PopupMenu popupMenu1;
     private javax.swing.JTable table;
+    private javax.swing.JTextField type_tf;
     // End of variables declaration//GEN-END:variables
 }

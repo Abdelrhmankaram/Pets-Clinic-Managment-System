@@ -355,6 +355,7 @@ String doc_id;
                         if (name.equals(rs.getString(2)) && pass.equals(rs.getString(3))) {
                             doc_id=String.valueOf(rs.getInt(1));
                             new doctor_window(doc_id).setVisible(true);
+                            this.dispose();
                             found = true;
                             break;
                         }
