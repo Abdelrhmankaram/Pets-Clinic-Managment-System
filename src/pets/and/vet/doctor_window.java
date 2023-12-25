@@ -101,7 +101,7 @@ public class doctor_window extends javax.swing.JFrame {
         age_tf = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
-        lastname_tf = new javax.swing.JTextField();
+        gender_tf = new javax.swing.JTextField();
         jLabel9 = new javax.swing.JLabel();
         color_tf = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
@@ -109,8 +109,7 @@ public class doctor_window extends javax.swing.JFrame {
         jLabel10 = new javax.swing.JLabel();
         pettype_tf = new javax.swing.JTextField();
         bak_btn = new javax.swing.JButton();
-        male = new javax.swing.JRadioButton();
-        female = new javax.swing.JRadioButton();
+        lastname_tf = new javax.swing.JTextField();
 
         popupMenu1.setLabel("popupMenu1");
 
@@ -186,7 +185,7 @@ public class doctor_window extends javax.swing.JFrame {
         jLabel6.setForeground(new java.awt.Color(255, 255, 255));
         jLabel6.setText("Last Name");
 
-        lastname_tf.setEditable(false);
+        gender_tf.setEditable(false);
 
         jLabel9.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel9.setForeground(new java.awt.Color(255, 255, 255));
@@ -225,18 +224,7 @@ public class doctor_window extends javax.swing.JFrame {
             }
         });
 
-        buttonGroup1.add(male);
-        male.setForeground(new java.awt.Color(204, 255, 255));
-        male.setText("Male");
-        male.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                maleActionPerformed(evt);
-            }
-        });
-
-        buttonGroup1.add(female);
-        female.setForeground(new java.awt.Color(204, 255, 255));
-        female.setText("Female");
+        lastname_tf.setEditable(false);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -275,14 +263,12 @@ public class doctor_window extends javax.swing.JFrame {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(181, 181, 181))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 243, Short.MAX_VALUE))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jLabel7)
-                                .addGap(47, 47, 47)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(male, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(lastname_tf, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(gender_tf, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(54, 54, 54)))
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -295,14 +281,16 @@ public class doctor_window extends javax.swing.JFrame {
                         .addGap(26, 26, 26))
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
                         .addGap(466, 466, 466)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(female, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(diagnose_btn, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(40, 40, 40)
-                                .addComponent(view_logs_btn, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(diagnose_btn, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(40, 40, 40)
+                        .addComponent(view_logs_btn, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addGap(43, 43, 43))
+            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                    .addContainerGap(577, Short.MAX_VALUE)
+                    .addComponent(lastname_tf, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(426, 426, 426)))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -318,7 +306,6 @@ public class doctor_window extends javax.swing.JFrame {
                     .addComponent(jLabel2)
                     .addComponent(firstname_tf, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel6)
-                    .addComponent(lastname_tf, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel9)
                     .addComponent(color_tf, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
@@ -328,8 +315,7 @@ public class doctor_window extends javax.swing.JFrame {
                     .addComponent(jLabel7)
                     .addComponent(jLabel5)
                     .addComponent(phone_tf, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(male)
-                    .addComponent(female))
+                    .addComponent(gender_tf, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel10)
@@ -340,6 +326,11 @@ public class doctor_window extends javax.swing.JFrame {
                     .addComponent(diagnose_btn, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 317, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel1Layout.createSequentialGroup()
+                    .addGap(122, 122, 122)
+                    .addComponent(lastname_tf, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(512, Short.MAX_VALUE)))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -388,25 +379,16 @@ public class doctor_window extends javax.swing.JFrame {
         col = obj.getValueAt(table.getSelectedRow(), 7).toString();
         firstname_tf.setText(f_name);
         lastname_tf.setText(l_name);
+        gender_tf.setText(gender);
         age_tf.setText(age);
         phone_tf.setText(phone);
-        male.setSelected(false);
-        female.setSelected(false);
         color_tf.setText(col);
         pettype_tf.setText(type);
-        if(gender == "male")
-            male.setSelected(true);
-        else
-            female.setSelected(true);
     }//GEN-LAST:event_tableMouseClicked
 
     private void pettype_tfActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pettype_tfActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_pettype_tfActionPerformed
-
-    private void maleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_maleActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_maleActionPerformed
 
     private void color_tfActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_color_tfActionPerformed
         // TODO add your handling code here:
@@ -454,8 +436,8 @@ public class doctor_window extends javax.swing.JFrame {
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JTextField color_tf;
     private javax.swing.JButton diagnose_btn;
-    private javax.swing.JRadioButton female;
     private javax.swing.JTextField firstname_tf;
+    private javax.swing.JTextField gender_tf;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -468,7 +450,6 @@ public class doctor_window extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField lastname_tf;
-    private javax.swing.JRadioButton male;
     private javax.swing.JTextField pettype_tf;
     private javax.swing.JTextField phone_tf;
     private java.awt.PopupMenu popupMenu1;
