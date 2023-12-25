@@ -12,7 +12,7 @@ import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.table.DefaultTableModel;
-
+import javax.swing.JOptionPane;
 /**
  *
  * @author abdelrhmankrm
@@ -29,7 +29,7 @@ public class view_logs extends javax.swing.JFrame {
         initComponents();
         this.setLocationRelativeTo(null);
         try {
-            con = DriverManager.getConnection("jdbc:mysql://localhost:3306/pet_and_vet", "root", "Root123456789@@");
+            con = DriverManager.getConnection("jdbc:mysql://localhost:3306/pet_and_vet", "root", "root");
 
         } catch (SQLException ex) {
             Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
@@ -88,7 +88,8 @@ public class view_logs extends javax.swing.JFrame {
         g1 = new javax.swing.JRadioButton();
         jLabel10 = new javax.swing.JLabel();
         jButton4 = new javax.swing.JButton();
-        back = new javax.swing.JButton();
+        modify = new javax.swing.JButton();
+        pets = new javax.swing.JButton();
 
         popupMenu1.setLabel("popupMenu1");
 
@@ -174,12 +175,21 @@ public class view_logs extends javax.swing.JFrame {
             }
         });
 
-        back.setFont(new java.awt.Font("Serif", 1, 18)); // NOI18N
-        back.setForeground(new java.awt.Color(16, 76, 71));
-        back.setText("Back");
-        back.addActionListener(new java.awt.event.ActionListener() {
+        modify.setFont(new java.awt.Font("Serif", 1, 18)); // NOI18N
+        modify.setForeground(new java.awt.Color(16, 76, 71));
+        modify.setText("Modify Appointments");
+        modify.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                backActionPerformed(evt);
+                modifyActionPerformed(evt);
+            }
+        });
+
+        pets.setFont(new java.awt.Font("Serif", 1, 18)); // NOI18N
+        pets.setForeground(new java.awt.Color(16, 76, 71));
+        pets.setText("Pets Appointmenets");
+        pets.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                petsActionPerformed(evt);
             }
         });
 
@@ -193,8 +203,10 @@ public class view_logs extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 297, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(747, 747, 747)
-                        .addComponent(back))
+                        .addGap(395, 395, 395)
+                        .addComponent(pets, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(modify))
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGroup(jPanel1Layout.createSequentialGroup()
@@ -223,7 +235,8 @@ public class view_logs extends javax.swing.JFrame {
                 .addGap(23, 23, 23)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(back, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(modify, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(pets, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(36, 36, 36)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -272,12 +285,31 @@ public class view_logs extends javax.swing.JFrame {
         
     }//GEN-LAST:event_jButton4ActionPerformed
 
-    private void backActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backActionPerformed
+    private void modifyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_modifyActionPerformed
         // TODO add your handling code here:
-        receptionist_window n=new receptionist_window();
-        this.dispose();
-        n.setVisible(true);
-    }//GEN-LAST:event_backActionPerformed
+        String s = JOptionPane.showInputDialog("enter the password");
+        if(s.equals("rec123")){
+            receptionist_window n=new receptionist_window();
+            this.dispose();
+            n.setVisible(true);
+        }
+        else {
+            JOptionPane.showMessageDialog(this, "wrong password");
+        }
+    }//GEN-LAST:event_modifyActionPerformed
+
+    private void petsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_petsActionPerformed
+        // TODO add your handling code here:
+        String s = JOptionPane.showInputDialog("enter the password");
+        if(s.equals("doc123")){
+            doctor_window new_window = new doctor_window();
+            this.dispose();
+            new_window.setVisible(true);
+        }
+        else {
+            JOptionPane.showMessageDialog(this, "wrong password");
+        }
+    }//GEN-LAST:event_petsActionPerformed
 
     /**
      * @param args the command line arguments
@@ -322,7 +354,6 @@ public class view_logs extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton back;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JRadioButton g1;
     private javax.swing.JRadioButton g2;
@@ -339,6 +370,8 @@ public class view_logs extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField4;
     private javax.swing.JTextField jTextField5;
     private javax.swing.JTextField jTextField6;
+    private javax.swing.JButton modify;
+    private javax.swing.JButton pets;
     private java.awt.PopupMenu popupMenu1;
     private javax.swing.JTable table;
     // End of variables declaration//GEN-END:variables

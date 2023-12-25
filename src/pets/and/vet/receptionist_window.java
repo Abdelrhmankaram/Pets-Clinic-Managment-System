@@ -19,7 +19,7 @@ public class receptionist_window extends javax.swing.JFrame {
     /**
      * Creates new form admin_window
      */
-     DefaultTableModel dtm;
+    DefaultTableModel dtm;
     Connection con = null;
     String f_name;
     String l_name;
@@ -32,11 +32,12 @@ public class receptionist_window extends javax.swing.JFrame {
     String type;
     String pet_id;
     String id_p;
+    String app_id;
     public receptionist_window() {
         initComponents();
         this.setLocationRelativeTo(null);
         try {
-            con = DriverManager.getConnection("jdbc:mysql://localhost:3306/pet_and_vet", "root", "Root123456789@@");
+            con = DriverManager.getConnection("jdbc:mysql://localhost:3306/pet_and_vet", "root", "root");
 
         } catch (SQLException ex) {
             Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
@@ -45,12 +46,12 @@ public class receptionist_window extends javax.swing.JFrame {
         dtm.addColumn("ID");
         dtm.addColumn("First Name");
         dtm.addColumn("Last Name");
-        dtm.addColumn("Color");
         dtm.addColumn("Age");
         dtm.addColumn("Gender");
+        dtm.addColumn("Type");
+        dtm.addColumn("Color");
         dtm.addColumn("Phone");
         dtm.addColumn("Email");
-        dtm.addColumn("Type");
         dtm.addColumn("Address");
         fill_table_model();
     }
@@ -62,7 +63,7 @@ public class receptionist_window extends javax.swing.JFrame {
           while(res.next())
           {
               //cl_ids.add(res.getInt());
-              dtm.addRow(new Object[]{res.getString(6),res.getString(1),res.getString(2),res.getString(10),res.getString(8),res.getString(9),res.getString(3),res.getString(4),res.getString(11),res.getString(7)});
+              dtm.addRow(new Object[]{res.getInt(12), res.getString(1),res.getString(2),res.getInt(8),res.getString(9),res.getString(7),res.getString(10),res.getString(3),res.getString(4),res.getString(11)});
               table.setModel(dtm);
           }
         }
@@ -324,6 +325,18 @@ public class receptionist_window extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel9)
+                            .addComponent(color_tf, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(gg)
+                            .addComponent(phone_tf, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel10)
+                            .addComponent(pettype_tf, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel2)
                             .addComponent(fname_tf, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel6)
@@ -344,27 +357,14 @@ public class receptionist_window extends javax.swing.JFrame {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel5)
                             .addComponent(pett_id, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 20, Short.MAX_VALUE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(add_btn, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(edit_btn, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(viewlogs_btn, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(delete_btn, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel9)
-                            .addComponent(color_tf, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(gg)
-                            .addComponent(phone_tf, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel10)
-                            .addComponent(pettype_tf, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 302, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(12, 12, 12))
+                            .addComponent(delete_btn, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 308, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -524,16 +524,27 @@ public class receptionist_window extends javax.swing.JFrame {
         // TODO add your handling code here:
         DefaultTableModel obj=(DefaultTableModel) table.getModel();
         int index = table.getSelectedRow();
-         id_p = obj.getValueAt(table.getSelectedRow(), 0).toString();
+        app_id = obj.getValueAt(table.getSelectedRow(), 0).toString();
+        int app = Integer.parseInt(app_id);
+        try {
+            PreparedStatement stmt= con.prepareStatement("select pet_id from appointments where app_id = ?");
+            stmt.setInt(1, app);
+            ResultSet r = stmt.executeQuery();
+            while(r.next()){
+                id_p = String.valueOf(r.getInt(1));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(receptionist_window.class.getName()).log(Level.SEVERE, null, ex);
+        }
         String f_name_e = obj.getValueAt(table.getSelectedRow(), 1).toString();
         String l_name_e = obj.getValueAt(table.getSelectedRow(), 2).toString();
-        String email_e = obj.getValueAt(table.getSelectedRow(), 7).toString();
-        String age_e = obj.getValueAt(table.getSelectedRow(), 4).toString();
-        String phone_e =obj.getValueAt(table.getSelectedRow(), 6).toString();
-        String address_e = obj.getValueAt(table.getSelectedRow(), 8).toString();
-        String gender_e = obj.getValueAt(table.getSelectedRow(), 5).toString();
-        String type_e = obj.getValueAt(table.getSelectedRow(), 9).toString();
-        String color_e=obj.getValueAt(table.getSelectedRow(), 3).toString();
+        String email_e = obj.getValueAt(table.getSelectedRow(), 8).toString();
+        String age_e = obj.getValueAt(table.getSelectedRow(), 3).toString();
+        String phone_e =obj.getValueAt(table.getSelectedRow(), 7).toString();
+        String address_e = obj.getValueAt(table.getSelectedRow(), 9).toString();
+        String gender_e = obj.getValueAt(table.getSelectedRow(), 4).toString();
+        String type_e = obj.getValueAt(table.getSelectedRow(), 5).toString();
+        String color_e=obj.getValueAt(table.getSelectedRow(), 6).toString();
         
         fname_tf.setText(f_name_e);
         lname_tf.setText(l_name_e);

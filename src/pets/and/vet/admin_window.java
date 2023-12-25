@@ -39,7 +39,7 @@ public class admin_window extends javax.swing.JFrame {
         initComponents();
         this.setLocationRelativeTo(null);
         try {
-            con = DriverManager.getConnection("jdbc:mysql://localhost:3306/pet_and_vet", "root", "Root123456789@@");
+            con = DriverManager.getConnection("jdbc:mysql://localhost:3306/pet_and_vet", "root", "root");
 
         } catch (SQLException ex) {
             Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
@@ -388,12 +388,12 @@ public class admin_window extends javax.swing.JFrame {
                             .addComponent(email_tf, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel8)
                             .addComponent(address_tf, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 50, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 44, Short.MAX_VALUE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(edit_btn, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(add_btn, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(delete_btn, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGap(18, 18, 18)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 374, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -461,6 +461,18 @@ public class admin_window extends javax.swing.JFrame {
             Logger.getLogger(admin_window.class.getName()).log(Level.SEVERE, null, ex);
         }
         fill_table_model();
+        first_name_tf.setText("");
+        last_name_tf.setText("");
+        email_tf.setText("");
+        address_tf.setText("");
+        phone_tf.setText("");
+        age_tf.setText("");
+        username_tf.setText("");
+        password_tf.setText("");
+        female_btn.setSelected(false);
+        male_btn.setSelected(false);
+        doctor_btn.setSelected(false);
+        recep_btn.setSelected(false);
     }//GEN-LAST:event_add_btnActionPerformed
 
     private void edit_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_edit_btnActionPerformed

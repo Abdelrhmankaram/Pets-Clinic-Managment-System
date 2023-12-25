@@ -4,8 +4,16 @@
  */
 package pets.and.vet;
 
+import java.awt.*;
+import java.sql.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.border.AbstractBorder;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-
 /**
  *
  * @author abdelrhmankrm
@@ -15,17 +23,55 @@ public class doctor_window extends javax.swing.JFrame {
     /**
      * Creates new form admin_window
      */
-    String f_name_o;
-    String l_name_o;
-    String gender_p;
-    String color;
-    String age_p;
-    String phone_o;
-    String type_p;
+    DefaultTableModel dtm;
+    Connection con = null;
+    String f_name;
+    String l_name;
+    String col;
+    String age;
+    String gender;
+    String phone;
+    String email;
+    String address;
+    String type;
+    String pet_id;
     String id_p;
     public doctor_window() {
         initComponents();
         this.setLocationRelativeTo(null);
+        try {
+            con = DriverManager.getConnection("jdbc:mysql://localhost:3306/pet_and_vet", "root", "root");
+
+        } catch (SQLException ex) {
+            Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        dtm=new DefaultTableModel();
+        dtm.addColumn("ID");
+        dtm.addColumn("First Name");
+        dtm.addColumn("Last Name");
+        dtm.addColumn("Pet's Type");
+        dtm.addColumn("Age");
+        dtm.addColumn("Gender");
+        dtm.addColumn("Phone");
+        dtm.addColumn("Color");
+        fill_table_model();
+    }
+    private void fill_table_model(){
+        dtm.setRowCount(0);
+        try{
+          PreparedStatement stmt= con.prepareStatement("select pet_id, own_first_name, own_last_name, kind, age, gender, phone, color from appointments ");
+          ResultSet res=stmt.executeQuery();
+          while(res.next())
+          {
+              //cl_ids.add(res.getInt());
+              dtm.addRow(new Object[]{res.getInt(1),res.getString(2),res.getString(3),res.getString(4),res.getInt(5),res.getString(6),res.getString(7),res.getString(8)});
+              table.setModel(dtm);
+          }
+        }
+        catch (SQLException ex) {
+             Logger.getLogger(admin_window.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
     }
 
     /**
@@ -38,9 +84,10 @@ public class doctor_window extends javax.swing.JFrame {
     private void initComponents() {
 
         popupMenu1 = new java.awt.PopupMenu();
+        buttonGroup1 = new javax.swing.ButtonGroup();
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tbl2 = new javax.swing.JTable();
+        table = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
         view_logs_btn = new javax.swing.JButton();
         diagnose_btn = new javax.swing.JButton();
@@ -50,7 +97,6 @@ public class doctor_window extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         age_tf = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
-        gender_tf = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
         lastname_tf = new javax.swing.JTextField();
         jLabel9 = new javax.swing.JLabel();
@@ -60,6 +106,8 @@ public class doctor_window extends javax.swing.JFrame {
         jLabel10 = new javax.swing.JLabel();
         pettype_tf = new javax.swing.JTextField();
         back_btn = new javax.swing.JButton();
+        male = new javax.swing.JRadioButton();
+        female = new javax.swing.JRadioButton();
 
         popupMenu1.setLabel("popupMenu1");
 
@@ -67,7 +115,7 @@ public class doctor_window extends javax.swing.JFrame {
 
         jPanel1.setBackground(new java.awt.Color(26, 119, 111));
 
-        tbl2.setModel(new javax.swing.table.DefaultTableModel(
+        table.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -83,12 +131,12 @@ public class doctor_window extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        tbl2.addMouseListener(new java.awt.event.MouseAdapter() {
+        table.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tbl2MouseClicked(evt);
+                tableMouseClicked(evt);
             }
         });
-        jScrollPane1.setViewportView(tbl2);
+        jScrollPane1.setViewportView(table);
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
@@ -131,13 +179,6 @@ public class doctor_window extends javax.swing.JFrame {
         jLabel7.setForeground(new java.awt.Color(255, 255, 255));
         jLabel7.setText("Gender");
 
-        gender_tf.setEditable(false);
-        gender_tf.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                gender_tfActionPerformed(evt);
-            }
-        });
-
         jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(255, 255, 255));
         jLabel6.setText("Last Name");
@@ -149,6 +190,11 @@ public class doctor_window extends javax.swing.JFrame {
         jLabel9.setText("Color");
 
         color_tf.setEditable(false);
+        color_tf.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                color_tfActionPerformed(evt);
+            }
+        });
 
         jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(255, 255, 255));
@@ -176,6 +222,19 @@ public class doctor_window extends javax.swing.JFrame {
             }
         });
 
+        buttonGroup1.add(male);
+        male.setForeground(new java.awt.Color(204, 255, 255));
+        male.setText("Male");
+        male.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                maleActionPerformed(evt);
+            }
+        });
+
+        buttonGroup1.add(female);
+        female.setForeground(new java.awt.Color(204, 255, 255));
+        female.setText("Female");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -195,12 +254,6 @@ public class doctor_window extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(back_btn))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(466, 466, 466)
-                        .addComponent(diagnose_btn, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(40, 40, 40)
-                        .addComponent(view_logs_btn, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(70, 70, 70)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
@@ -216,39 +269,45 @@ public class doctor_window extends javax.swing.JFrame {
                                 .addGap(67, 67, 67)
                                 .addComponent(age_tf, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(57, 57, 57)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(181, 181, 181))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jLabel7)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(gender_tf, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(lastname_tf, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGroup(jPanel1Layout.createSequentialGroup()
-                                    .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGap(181, 181, 181))))
+                                .addGap(47, 47, 47)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(male, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(lastname_tf, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE))))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(181, 181, 181))
-                            .addComponent(color_tf, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(phone_tf, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGroup(jPanel1Layout.createSequentialGroup()
-                                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGap(181, 181, 181))))))
+                                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(phone_tf, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(24, 24, 24)
+                                .addComponent(color_tf, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(26, 26, 26))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                        .addGap(466, 466, 466)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(female, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(diagnose_btn, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(40, 40, 40)
+                                .addComponent(view_logs_btn, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addGap(43, 43, 43))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(23, 23, 23)
-                        .addComponent(jLabel11))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(back_btn, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(23, 23, 23)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel11)
+                    .addComponent(back_btn, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
@@ -264,9 +323,10 @@ public class doctor_window extends javax.swing.JFrame {
                     .addComponent(jLabel3)
                     .addComponent(age_tf, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel7)
-                    .addComponent(gender_tf, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel5)
-                    .addComponent(phone_tf, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(phone_tf, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(male)
+                    .addComponent(female))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel10)
@@ -294,10 +354,9 @@ public class doctor_window extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void diagnose_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_diagnose_btnActionPerformed
-
-        // TODO add your handling code here:
-        new diagnose_pet(id_p).setVisible(true);
-            this.dispose();
+        diagnose_pet new_window = new diagnose_pet();
+        this.dispose();
+        new_window.setVisible(true);
     }//GEN-LAST:event_diagnose_btnActionPerformed
 
     private void view_logs_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_view_logs_btnActionPerformed
@@ -309,36 +368,47 @@ public class doctor_window extends javax.swing.JFrame {
 
     private void back_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_back_btnActionPerformed
         // TODO add your handling code here:
+        Login next_window = new Login();
+        this.dispose();
+        next_window.setVisible(true);
     }//GEN-LAST:event_back_btnActionPerformed
 
-    private void tbl2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbl2MouseClicked
-        // TODO add your handling code here:
-         DefaultTableModel obj=(DefaultTableModel) tbl2.getModel();
-        int index = tbl2.getSelectedRow();
-        id_p = obj.getValueAt(tbl2.getSelectedRow(), 0).toString();
-        f_name_o = obj.getValueAt(tbl2.getSelectedRow(), 1).toString();
-        l_name_o = obj.getValueAt(tbl2.getSelectedRow(), 2).toString();
-        color = obj.getValueAt(tbl2.getSelectedRow(), 3).toString();
-        age_p = obj.getValueAt(tbl2.getSelectedRow(), 4).toString();
-        phone_o =obj.getValueAt(tbl2.getSelectedRow(), 6).toString();
-        gender_p = obj.getValueAt(tbl2.getSelectedRow(), 5).toString();
-        type_p = obj.getValueAt(tbl2.getSelectedRow(), 7).toString();
-        firstname_tf.setText(f_name_o);
-        lastname_tf.setText(l_name_o);
-        color_tf.setText(color);
-        phone_tf.setText(phone_o);
-        age_tf.setText(age_p);
-        gender_tf.setText(gender_p);
-        pettype_tf.setText(type_p);
-    }//GEN-LAST:event_tbl2MouseClicked
-
-    private void gender_tfActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_gender_tfActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_gender_tfActionPerformed
+    private void tableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableMouseClicked
+        DefaultTableModel obj=(DefaultTableModel) table.getModel();
+        int index = table.getSelectedRow();
+        id_p = obj.getValueAt(table.getSelectedRow(), 0).toString();
+        f_name = obj.getValueAt(table.getSelectedRow(), 1).toString();
+        l_name = obj.getValueAt(table.getSelectedRow(), 2).toString();
+        age = obj.getValueAt(table.getSelectedRow(), 4).toString();
+        phone =obj.getValueAt(table.getSelectedRow(), 6).toString();
+        gender = obj.getValueAt(table.getSelectedRow(), 5).toString();
+        type = obj.getValueAt(table.getSelectedRow(), 3).toString();
+        col = obj.getValueAt(table.getSelectedRow(), 7).toString();
+        firstname_tf.setText(f_name);
+        lastname_tf.setText(l_name);
+        age_tf.setText(age);
+        phone_tf.setText(phone);
+        male.setSelected(false);
+        female.setSelected(false);
+        color_tf.setText(col);
+        pettype_tf.setText(type);
+        if(gender == "male")
+            male.setSelected(true);
+        else
+            female.setSelected(true);
+    }//GEN-LAST:event_tableMouseClicked
 
     private void pettype_tfActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pettype_tfActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_pettype_tfActionPerformed
+
+    private void maleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_maleActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_maleActionPerformed
+
+    private void color_tfActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_color_tfActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_color_tfActionPerformed
 
     /**
      * @param args the command line arguments
@@ -379,10 +449,11 @@ public class doctor_window extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField age_tf;
     private javax.swing.JButton back_btn;
+    private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JTextField color_tf;
     private javax.swing.JButton diagnose_btn;
+    private javax.swing.JRadioButton female;
     private javax.swing.JTextField firstname_tf;
-    private javax.swing.JTextField gender_tf;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -395,10 +466,11 @@ public class doctor_window extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField lastname_tf;
+    private javax.swing.JRadioButton male;
     private javax.swing.JTextField pettype_tf;
     private javax.swing.JTextField phone_tf;
     private java.awt.PopupMenu popupMenu1;
-    private javax.swing.JTable tbl2;
+    private javax.swing.JTable table;
     private javax.swing.JButton view_logs_btn;
     // End of variables declaration//GEN-END:variables
 }
