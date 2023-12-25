@@ -4,6 +4,8 @@
  */
 package pets.and.vet;
 
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author abdelrhmankrm
@@ -13,8 +15,17 @@ public class doctor_window extends javax.swing.JFrame {
     /**
      * Creates new form admin_window
      */
+    String f_name_o;
+    String l_name_o;
+    String gender_p;
+    String color;
+    String age_p;
+    String phone_o;
+    String type_p;
+    String id_p;
     public doctor_window() {
         initComponents();
+        this.setLocationRelativeTo(null);
     }
 
     /**
@@ -29,25 +40,25 @@ public class doctor_window extends javax.swing.JFrame {
         popupMenu1 = new java.awt.PopupMenu();
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tbl2 = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        view_logs_btn = new javax.swing.JButton();
+        diagnose_btn = new javax.swing.JButton();
         jLabel11 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        firstname_tf = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
-        jTextField10 = new javax.swing.JTextField();
+        age_tf = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
-        jTextField14 = new javax.swing.JTextField();
+        gender_tf = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
-        jTextField13 = new javax.swing.JTextField();
+        lastname_tf = new javax.swing.JTextField();
         jLabel9 = new javax.swing.JLabel();
-        jTextField16 = new javax.swing.JTextField();
+        color_tf = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
-        jTextField12 = new javax.swing.JTextField();
+        phone_tf = new javax.swing.JTextField();
         jLabel10 = new javax.swing.JLabel();
-        jTextField17 = new javax.swing.JTextField();
+        pettype_tf = new javax.swing.JTextField();
         back_btn = new javax.swing.JButton();
 
         popupMenu1.setLabel("popupMenu1");
@@ -56,42 +67,47 @@ public class doctor_window extends javax.swing.JFrame {
 
         jPanel1.setBackground(new java.awt.Color(26, 119, 111));
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tbl2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "ID", "First Name", "Last Name", "Password", "Age", "Gender", "Phone", "Email", "Address", "Type"
+                "ID", "First Name", "Last Name", "Color", "Age", "Gender", "Phone", "Pet's Type"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false, false, false
+                false, false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(jTable1);
+        tbl2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tbl2MouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(tbl2);
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
 
-        jButton1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jButton1.setForeground(new java.awt.Color(16, 76, 71));
-        jButton1.setText("View Logs");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        view_logs_btn.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        view_logs_btn.setForeground(new java.awt.Color(16, 76, 71));
+        view_logs_btn.setText("View Logs");
+        view_logs_btn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                view_logs_btnActionPerformed(evt);
             }
         });
 
-        jButton3.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jButton3.setForeground(new java.awt.Color(16, 76, 71));
-        jButton3.setText("Diagnose");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        diagnose_btn.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        diagnose_btn.setForeground(new java.awt.Color(16, 76, 71));
+        diagnose_btn.setText("Diagnose");
+        diagnose_btn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                diagnose_btnActionPerformed(evt);
             }
         });
 
@@ -103,29 +119,53 @@ public class doctor_window extends javax.swing.JFrame {
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("First Name");
 
+        firstname_tf.setEditable(false);
+
         jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setText("Age");
+
+        age_tf.setEditable(false);
 
         jLabel7.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(255, 255, 255));
         jLabel7.setText("Gender");
 
+        gender_tf.setEditable(false);
+        gender_tf.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                gender_tfActionPerformed(evt);
+            }
+        });
+
         jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(255, 255, 255));
         jLabel6.setText("Last Name");
+
+        lastname_tf.setEditable(false);
 
         jLabel9.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel9.setForeground(new java.awt.Color(255, 255, 255));
         jLabel9.setText("Color");
 
+        color_tf.setEditable(false);
+
         jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(255, 255, 255));
         jLabel5.setText("Phone");
 
+        phone_tf.setEditable(false);
+
         jLabel10.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel10.setForeground(new java.awt.Color(255, 255, 255));
         jLabel10.setText("Pet's Type");
+
+        pettype_tf.setEditable(false);
+        pettype_tf.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                pettype_tfActionPerformed(evt);
+            }
+        });
 
         back_btn.setFont(new java.awt.Font("Serif", 1, 18)); // NOI18N
         back_btn.setForeground(new java.awt.Color(16, 76, 71));
@@ -156,9 +196,9 @@ public class doctor_window extends javax.swing.JFrame {
                                 .addComponent(back_btn))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(466, 466, 466)
-                        .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(diagnose_btn, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(40, 40, 40)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(view_logs_btn, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(70, 70, 70)
@@ -166,23 +206,23 @@ public class doctor_window extends javax.swing.JFrame {
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(181, 181, 181))
-                            .addComponent(jTextField17, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(pettype_tf, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jLabel2)
                                 .addGap(16, 16, 16)
-                                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(firstname_tf, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(67, 67, 67)
-                                .addComponent(jTextField10, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(age_tf, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(57, 57, 57)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jLabel7)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jTextField14, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(gender_tf, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(jTextField13, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(lastname_tf, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGroup(jPanel1Layout.createSequentialGroup()
                                     .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGap(181, 181, 181))))
@@ -191,9 +231,9 @@ public class doctor_window extends javax.swing.JFrame {
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(181, 181, 181))
-                            .addComponent(jTextField16, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(color_tf, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(jTextField12, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(phone_tf, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGroup(jPanel1Layout.createSequentialGroup()
                                     .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGap(181, 181, 181))))))
@@ -214,27 +254,27 @@ public class doctor_window extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(firstname_tf, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel6)
-                    .addComponent(jTextField13, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lastname_tf, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel9)
-                    .addComponent(jTextField16, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(color_tf, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(jTextField10, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(age_tf, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel7)
-                    .addComponent(jTextField14, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(gender_tf, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel5)
-                    .addComponent(jTextField12, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(phone_tf, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel10)
-                    .addComponent(jTextField17, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(pettype_tf, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(37, 37, 37)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(view_logs_btn, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(diagnose_btn, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 317, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
@@ -253,17 +293,52 @@ public class doctor_window extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton3ActionPerformed
+    private void diagnose_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_diagnose_btnActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+        new diagnose_pet(id_p).setVisible(true);
+            this.dispose();
+    }//GEN-LAST:event_diagnose_btnActionPerformed
+
+    private void view_logs_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_view_logs_btnActionPerformed
+        // TODO add your handling code here:
+        view_logs next_w=new view_logs();
+        this.dispose();
+        next_w.setVisible(true);
+    }//GEN-LAST:event_view_logs_btnActionPerformed
 
     private void back_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_back_btnActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_back_btnActionPerformed
+
+    private void tbl2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbl2MouseClicked
+        // TODO add your handling code here:
+         DefaultTableModel obj=(DefaultTableModel) tbl2.getModel();
+        int index = tbl2.getSelectedRow();
+        id_p = obj.getValueAt(tbl2.getSelectedRow(), 0).toString();
+        f_name_o = obj.getValueAt(tbl2.getSelectedRow(), 1).toString();
+        l_name_o = obj.getValueAt(tbl2.getSelectedRow(), 2).toString();
+        color = obj.getValueAt(tbl2.getSelectedRow(), 3).toString();
+        age_p = obj.getValueAt(tbl2.getSelectedRow(), 4).toString();
+        phone_o =obj.getValueAt(tbl2.getSelectedRow(), 6).toString();
+        gender_p = obj.getValueAt(tbl2.getSelectedRow(), 5).toString();
+        type_p = obj.getValueAt(tbl2.getSelectedRow(), 7).toString();
+        firstname_tf.setText(f_name_o);
+        lastname_tf.setText(l_name_o);
+        color_tf.setText(color);
+        phone_tf.setText(phone_o);
+        age_tf.setText(age_p);
+        gender_tf.setText(gender_p);
+        pettype_tf.setText(type_p);
+    }//GEN-LAST:event_tbl2MouseClicked
+
+    private void gender_tfActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_gender_tfActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_gender_tfActionPerformed
+
+    private void pettype_tfActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pettype_tfActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_pettype_tfActionPerformed
 
     /**
      * @param args the command line arguments
@@ -302,9 +377,12 @@ public class doctor_window extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextField age_tf;
     private javax.swing.JButton back_btn;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton3;
+    private javax.swing.JTextField color_tf;
+    private javax.swing.JButton diagnose_btn;
+    private javax.swing.JTextField firstname_tf;
+    private javax.swing.JTextField gender_tf;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -316,14 +394,11 @@ public class doctor_window extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField10;
-    private javax.swing.JTextField jTextField12;
-    private javax.swing.JTextField jTextField13;
-    private javax.swing.JTextField jTextField14;
-    private javax.swing.JTextField jTextField16;
-    private javax.swing.JTextField jTextField17;
+    private javax.swing.JTextField lastname_tf;
+    private javax.swing.JTextField pettype_tf;
+    private javax.swing.JTextField phone_tf;
     private java.awt.PopupMenu popupMenu1;
+    private javax.swing.JTable tbl2;
+    private javax.swing.JButton view_logs_btn;
     // End of variables declaration//GEN-END:variables
 }

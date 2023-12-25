@@ -4,20 +4,73 @@
  */
 package pets.and.vet;
 
-/**
- *
- * @author abdelrhmankrm
- */
+import java.awt.*;
+import java.sql.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.border.AbstractBorder;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 public class receptionist_window extends javax.swing.JFrame {
 
     /**
      * Creates new form admin_window
      */
+     DefaultTableModel dtm;
+    Connection con = null;
+    String f_name;
+    String l_name;
+    String col;
+    String age;
+    String gender;
+    String phone;
+    String email;
+    String address;
+    String type;
+    String pet_id;
+    String id_p;
     public receptionist_window() {
         initComponents();
         this.setLocationRelativeTo(null);
-    }
+        try {
+            con = DriverManager.getConnection("jdbc:mysql://localhost:3306/pet_and_vet", "root", "Root123456789@@");
 
+        } catch (SQLException ex) {
+            Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        dtm=new DefaultTableModel();
+        dtm.addColumn("ID");
+        dtm.addColumn("First Name");
+        dtm.addColumn("Last Name");
+        dtm.addColumn("Color");
+        dtm.addColumn("Age");
+        dtm.addColumn("Gender");
+        dtm.addColumn("Phone");
+        dtm.addColumn("Email");
+        dtm.addColumn("Type");
+        dtm.addColumn("Address");
+        fill_table_model();
+    }
+    private void fill_table_model(){
+        dtm.setRowCount(0);
+        try{
+          PreparedStatement stmt= con.prepareStatement("select * from appointments ");
+          ResultSet res=stmt.executeQuery();
+          while(res.next())
+          {
+              //cl_ids.add(res.getInt());
+              dtm.addRow(new Object[]{res.getString(6),res.getString(1),res.getString(2),res.getString(10),res.getString(8),res.getString(9),res.getString(3),res.getString(4),res.getString(11),res.getString(7)});
+              table.setModel(dtm);
+          }
+        }
+        catch (SQLException ex) {
+             Logger.getLogger(admin_window.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -30,32 +83,33 @@ public class receptionist_window extends javax.swing.JFrame {
         popupMenu1 = new java.awt.PopupMenu();
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
-        jTextField1 = new javax.swing.JTextField();
+        table = new javax.swing.JTable();
+        fname_tf = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jTextField10 = new javax.swing.JTextField();
+        age_tf = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
-        jTextField11 = new javax.swing.JTextField();
+        email_tf = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
-        jTextField12 = new javax.swing.JTextField();
+        gg = new javax.swing.JLabel();
+        phone_tf = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
-        jTextField13 = new javax.swing.JTextField();
+        lname_tf = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
-        jTextField14 = new javax.swing.JTextField();
+        gender_tf = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
-        jTextField15 = new javax.swing.JTextField();
+        address_tf = new javax.swing.JTextField();
         jLabel9 = new javax.swing.JLabel();
-        jTextField16 = new javax.swing.JTextField();
-        jTextField17 = new javax.swing.JTextField();
+        color_tf = new javax.swing.JTextField();
+        pettype_tf = new javax.swing.JTextField();
         jLabel10 = new javax.swing.JLabel();
+        viewlogs_btn = new javax.swing.JButton();
+        edit_btn = new javax.swing.JButton();
+        add_btn = new javax.swing.JButton();
+        delete_btn = new javax.swing.JButton();
+        jLabel5 = new javax.swing.JLabel();
+        pett_id = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
-        jTextField18 = new javax.swing.JTextField();
-        jLabel11 = new javax.swing.JLabel();
 
         popupMenu1.setLabel("popupMenu1");
 
@@ -63,12 +117,12 @@ public class receptionist_window extends javax.swing.JFrame {
 
         jPanel1.setBackground(new java.awt.Color(26, 119, 111));
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        table.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "ID", "First Name", "Last Name", "Password", "Age", "Gender", "Phone", "Email", "Address", "Type"
+                "ID", "First Name", "Last Name", "Color", "Age", "Gender", "Phone", "Email", "Address", "Type"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -79,7 +133,18 @@ public class receptionist_window extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(jTable1);
+        table.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tableMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(table);
+
+        fname_tf.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                fname_tfActionPerformed(evt);
+            }
+        });
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 36)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
@@ -97,9 +162,9 @@ public class receptionist_window extends javax.swing.JFrame {
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
         jLabel4.setText("Email");
 
-        jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jLabel5.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel5.setText("Phone");
+        gg.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        gg.setForeground(new java.awt.Color(255, 255, 255));
+        gg.setText("Phone");
 
         jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(255, 255, 255));
@@ -121,40 +186,56 @@ public class receptionist_window extends javax.swing.JFrame {
         jLabel10.setForeground(new java.awt.Color(255, 255, 255));
         jLabel10.setText("Pet's Type");
 
-        jButton1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jButton1.setForeground(new java.awt.Color(16, 73, 68));
-        jButton1.setText("View Logs");
+        viewlogs_btn.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        viewlogs_btn.setForeground(new java.awt.Color(16, 73, 68));
+        viewlogs_btn.setText("View Logs");
+        viewlogs_btn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                viewlogs_btnActionPerformed(evt);
+            }
+        });
+
+        edit_btn.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        edit_btn.setForeground(new java.awt.Color(16, 73, 68));
+        edit_btn.setText("Edit");
+        edit_btn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                edit_btnActionPerformed(evt);
+            }
+        });
+
+        add_btn.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        add_btn.setForeground(new java.awt.Color(16, 73, 68));
+        add_btn.setText("Add");
+        add_btn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                add_btnActionPerformed(evt);
+            }
+        });
+
+        delete_btn.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        delete_btn.setForeground(new java.awt.Color(16, 73, 68));
+        delete_btn.setText("Delete");
+        delete_btn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                delete_btnActionPerformed(evt);
+            }
+        });
+
+        jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel5.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel5.setText("Pet ID");
+
+        pett_id.setEditable(false);
+
+        jButton1.setFont(new java.awt.Font("Serif", 1, 18)); // NOI18N
+        jButton1.setForeground(new java.awt.Color(16, 76, 71));
+        jButton1.setText("Back");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
             }
         });
-
-        jButton2.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jButton2.setForeground(new java.awt.Color(16, 73, 68));
-        jButton2.setText("Edit");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
-            }
-        });
-
-        jButton3.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jButton3.setForeground(new java.awt.Color(16, 73, 68));
-        jButton3.setText("Add");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
-            }
-        });
-
-        jButton4.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jButton4.setForeground(new java.awt.Color(16, 73, 68));
-        jButton4.setText("Delete");
-
-        jLabel11.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jLabel11.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel11.setText("Owner ID");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -165,40 +246,41 @@ public class receptionist_window extends javax.swing.JFrame {
                 .addContainerGap(70, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(add_btn, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(edit_btn, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(delete_btn, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(204, 204, 204)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(viewlogs_btn, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(75, 75, 75))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel2)
-                                .addGap(16, 16, 16)
-                                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(67, 67, 67)
-                                .addComponent(jTextField10, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel4)
-                                .addGap(62, 62, 62)
-                                .addComponent(jTextField11, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel11)
+                                .addComponent(jLabel5)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jTextField18, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(pett_id, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addGroup(jPanel1Layout.createSequentialGroup()
+                                    .addComponent(jLabel2)
+                                    .addGap(16, 16, 16)
+                                    .addComponent(fname_tf, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(jPanel1Layout.createSequentialGroup()
+                                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGap(67, 67, 67)
+                                    .addComponent(age_tf, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(jPanel1Layout.createSequentialGroup()
+                                    .addComponent(jLabel4)
+                                    .addGap(62, 62, 62)
+                                    .addComponent(email_tf, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE))))
                         .addGap(57, 57, 57)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jLabel7)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jTextField14, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(gender_tf, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(jTextField13, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(lname_tf, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGroup(jPanel1Layout.createSequentialGroup()
                                     .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGap(181, 181, 181)))
@@ -206,79 +288,83 @@ public class receptionist_window extends javax.swing.JFrame {
                                 .addGroup(jPanel1Layout.createSequentialGroup()
                                     .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGap(181, 181, 181))
-                                .addComponent(jTextField15, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(address_tf, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(50, 50, 50)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(181, 181, 181))
-                            .addComponent(jTextField16, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(color_tf, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(jTextField12, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(phone_tf, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGroup(jPanel1Layout.createSequentialGroup()
-                                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(gg, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGap(181, 181, 181)))
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                 .addGroup(jPanel1Layout.createSequentialGroup()
                                     .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGap(181, 181, 181))
-                                .addComponent(jTextField17, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(pettype_tf, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(65, 65, 65))))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(25, 25, 25)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 342, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jButton1)
+                .addGap(87, 87, 87))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(23, 23, 23)
-                .addComponent(jLabel1)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(36, 36, 36)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel2)
-                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(fname_tf, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel6)
-                            .addComponent(jTextField13, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(lname_tf, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel3)
-                            .addComponent(jTextField10, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(age_tf, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel7)
-                            .addComponent(jTextField14, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(gender_tf, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel4)
-                            .addComponent(jTextField11, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(email_tf, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel8)
-                            .addComponent(jTextField15, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(address_tf, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(31, 31, 31)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel11)
-                            .addComponent(jTextField18, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 43, Short.MAX_VALUE)
+                            .addComponent(jLabel5)
+                            .addComponent(pett_id, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 302, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(add_btn, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(edit_btn, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(viewlogs_btn, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(delete_btn, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel9)
-                            .addComponent(jTextField16, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(color_tf, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel5)
-                            .addComponent(jTextField12, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(gg)
+                            .addComponent(phone_tf, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel10)
-                            .addComponent(jTextField17, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 0, Short.MAX_VALUE))))
+                            .addComponent(pettype_tf, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 302, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(12, 12, 12))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -295,18 +381,202 @@ public class receptionist_window extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+    private void add_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_add_btnActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton3ActionPerformed
+         f_name=fname_tf.getText();
+         l_name=lname_tf.getText();
+         col=color_tf.getText();
+         age=age_tf.getText();
+         gender=gender_tf.getText();
+         phone=phone_tf.getText();
+         email=email_tf.getText();
+         address=address_tf.getText();
+         type=pettype_tf.getText();
+        if(!f_name.isEmpty() && !l_name.isEmpty() && !col.isEmpty() && !age.isEmpty() && !gender.isEmpty() && !phone.isEmpty() && !email.isEmpty() && !address.isEmpty() && !type.isEmpty()){
+            try {
+                PreparedStatement stnt = con.prepareStatement("insert into owners (first_name,last_name,phone,ssn,email) values (?,?,?,?,?)");
+                stnt.setString(1, f_name);
+                stnt.setString(2, l_name);
+                stnt.setString(3, phone);
+                stnt.setString(4, "30304041402755");
+                stnt.setString(5, email);
+                stnt.executeUpdate();
+            } catch (SQLException ex) {
+                Logger.getLogger(receptionist_window.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            int idd=0;
+            try {
+                PreparedStatement stnt = con.prepareStatement("select * from owners");
+                ResultSet res=stnt.executeQuery();
+                while(res.next()){
+                idd=res.getInt(1);
+                }
+                
+            } catch (SQLException ex) {
+                Logger.getLogger(receptionist_window.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            String own_id=String.valueOf(idd);
+            try {
+                PreparedStatement st = con.prepareStatement("insert into pets (kind,color,age,gender,owner_id) values (?,?,?,?,?)");
+                st.setString(1, type);
+                st.setString(2, col);
+                st.setString(3,age);
+                st.setString(4, gender);
+                st.setString(5, own_id);
+                st.executeUpdate();
+            } catch (SQLException ex) {
+                Logger.getLogger(receptionist_window.class.getName()).log(Level.SEVERE, null, ex);
+            }
+             int iddd=0;
+            try {
+                PreparedStatement stnt = con.prepareStatement("select * from pets");
+                ResultSet res=stnt.executeQuery();
+                while(res.next()){
+                iddd=res.getInt(1);
+                }
+                pet_id=String.valueOf((iddd));
+            } catch (SQLException ex) {
+                Logger.getLogger(receptionist_window.class.getName()).log(Level.SEVERE, null, ex);
+            }
+             try {
+                 PreparedStatement snt = con.prepareStatement("insert into appointments (own_first_name,own_last_name,phone,email,owner_id,pet_id,kind,age,gender,color,address) values (?,?,?,?,?,?,?,?,?,?,?)");
+                 snt.setString(1, f_name);
+                 snt.setString(2, l_name);
+                 snt.setString(3, phone);
+                 snt.setString(4,email);
+                 snt.setString(5, own_id);
+                 snt.setString(6, pet_id);
+                 snt.setString(7, type);
+                 snt.setString(8, age);
+                 snt.setString(9, gender);
+                 snt.setString(10, col);
+                 snt.setString(11, address);
+                 snt.executeUpdate();
+                 
+             } catch (SQLException ex) {
+                 Logger.getLogger(receptionist_window.class.getName()).log(Level.SEVERE, null, ex);
+             }
+             fill_table_model();
+         fname_tf.setText("");
+         lname_tf.setText("");
+         color_tf.setText("");
+         age_tf.setText("");
+         gender_tf.setText("");
+         phone_tf.setText("");
+         email_tf.setText("");
+         address_tf.setText("");
+         pettype_tf.setText("");
+         pett_id.setText("");
+        }
+        else {
+        JOptionPane.showMessageDialog(this, "Please, Fill all cells");
+        }
+    }//GEN-LAST:event_add_btnActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void edit_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_edit_btnActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton2ActionPerformed
+        String fname=fname_tf.getText();
+        String lname=lname_tf.getText();
+        String ema=email_tf.getText();
+        String agge=age_tf.getText();
+        String add=address_tf.getText();
+        String pho=phone_tf.getText();
+        String gen=gender_tf.getText();
+        String iddd=pett_id.getText();
+        String ty=pettype_tf.getText();
+        String co=color_tf.getText();
+         try {
+             PreparedStatement s = con.prepareStatement("update appointments set own_first_name=? ,own_last_name=?,phone=?,email=?,kind=?,age=?,gender=?,color=?,address=? where pet_id= ?");
+             s.setString(1, fname);
+             s.setString(2, lname);
+             s.setString(3, pho);
+             s.setString(4, ema);
+             s.setString(5, ty);
+             s.setString(6, agge);
+             s.setString(7, gen);
+             s.setString(8, co);
+             s.setString(9, add);
+             s.setString(10, iddd);
+             s.executeUpdate();
+             fill_table_model();
+             fname_tf.setText("");
+         lname_tf.setText("");
+         color_tf.setText("");
+         age_tf.setText("");
+         gender_tf.setText("");
+         phone_tf.setText("");
+         email_tf.setText("");
+         address_tf.setText("");
+         pettype_tf.setText("");
+         pett_id.setText("");
+         } catch (SQLException ex) {
+             Logger.getLogger(receptionist_window.class.getName()).log(Level.SEVERE, null, ex);
+         }
+    }//GEN-LAST:event_edit_btnActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void viewlogs_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewlogs_btnActionPerformed
         view_logs next_window = new view_logs();
         this.dispose();
         next_window.setVisible(true);
+    }//GEN-LAST:event_viewlogs_btnActionPerformed
+
+    private void tableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableMouseClicked
+        // TODO add your handling code here:
+        DefaultTableModel obj=(DefaultTableModel) table.getModel();
+        int index = table.getSelectedRow();
+         id_p = obj.getValueAt(table.getSelectedRow(), 0).toString();
+        String f_name_e = obj.getValueAt(table.getSelectedRow(), 1).toString();
+        String l_name_e = obj.getValueAt(table.getSelectedRow(), 2).toString();
+        String email_e = obj.getValueAt(table.getSelectedRow(), 7).toString();
+        String age_e = obj.getValueAt(table.getSelectedRow(), 4).toString();
+        String phone_e =obj.getValueAt(table.getSelectedRow(), 6).toString();
+        String address_e = obj.getValueAt(table.getSelectedRow(), 8).toString();
+        String gender_e = obj.getValueAt(table.getSelectedRow(), 5).toString();
+        String type_e = obj.getValueAt(table.getSelectedRow(), 9).toString();
+        String color_e=obj.getValueAt(table.getSelectedRow(), 3).toString();
+        
+        fname_tf.setText(f_name_e);
+        lname_tf.setText(l_name_e);
+        email_tf.setText(email_e);
+        age_tf.setText(age_e);
+        address_tf.setText(address_e);
+        phone_tf.setText(phone_e);
+        gender_tf.setText(gender_e);
+        pett_id.setText(id_p);
+        pettype_tf.setText(type_e);
+        color_tf.setText(color_e);
+    }//GEN-LAST:event_tableMouseClicked
+
+    private void fname_tfActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fname_tfActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_fname_tfActionPerformed
+
+    private void delete_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_delete_btnActionPerformed
+        // TODO add your handling code here:
+        fname_tf.setText("");
+         lname_tf.setText("");
+         color_tf.setText("");
+         age_tf.setText("");
+         gender_tf.setText("");
+         phone_tf.setText("");
+         email_tf.setText("");
+         address_tf.setText("");
+         pettype_tf.setText("");
+        pett_id.setText("");
+        try {
+            PreparedStatement st = con.prepareStatement("delete from appointments where pet_id = " + id_p);
+            st.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(admin_window.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        fill_table_model();
+    }//GEN-LAST:event_delete_btnActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        Login n=new Login();
+        this.dispose();
+        n.setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
@@ -348,13 +618,19 @@ public class receptionist_window extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton add_btn;
+    private javax.swing.JTextField address_tf;
+    private javax.swing.JTextField age_tf;
+    private javax.swing.JTextField color_tf;
+    private javax.swing.JButton delete_btn;
+    private javax.swing.JButton edit_btn;
+    private javax.swing.JTextField email_tf;
+    private javax.swing.JTextField fname_tf;
+    private javax.swing.JTextField gender_tf;
+    private javax.swing.JLabel gg;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -365,17 +641,12 @@ public class receptionist_window extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField10;
-    private javax.swing.JTextField jTextField11;
-    private javax.swing.JTextField jTextField12;
-    private javax.swing.JTextField jTextField13;
-    private javax.swing.JTextField jTextField14;
-    private javax.swing.JTextField jTextField15;
-    private javax.swing.JTextField jTextField16;
-    private javax.swing.JTextField jTextField17;
-    private javax.swing.JTextField jTextField18;
+    private javax.swing.JTextField lname_tf;
+    private javax.swing.JTextField pett_id;
+    private javax.swing.JTextField pettype_tf;
+    private javax.swing.JTextField phone_tf;
     private java.awt.PopupMenu popupMenu1;
+    private javax.swing.JTable table;
+    private javax.swing.JButton viewlogs_btn;
     // End of variables declaration//GEN-END:variables
 }
