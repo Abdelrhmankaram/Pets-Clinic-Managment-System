@@ -24,7 +24,7 @@ public class doctor_window extends javax.swing.JFrame {
      * Creates new form admin_window
      */
     DefaultTableModel dtm;
-    Connection con = null;
+    Connection con;
     String f_name;
     String l_name;
     String col;
@@ -36,14 +36,16 @@ public class doctor_window extends javax.swing.JFrame {
     String type;
     String pet_id;
     String id_p;
-    public doctor_window() {
+    String doctor_id;
+    public doctor_window(String doc_id) {
         initComponents();
         this.setLocationRelativeTo(null);
+        this.doctor_id=doc_id;
         try {
-            con = DriverManager.getConnection("jdbc:mysql://localhost:3306/pet_and_vet", "root", "root");
+            con = DriverManager.getConnection("jdbc:mysql://localhost:3306/pet_and_vet", "root", "Root123456789@@");
 
         } catch (SQLException ex) {
-            Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(doctor_window.class.getName()).log(Level.SEVERE, null, ex);
         }
         dtm=new DefaultTableModel();
         dtm.addColumn("ID");
@@ -56,6 +58,7 @@ public class doctor_window extends javax.swing.JFrame {
         dtm.addColumn("Color");
         fill_table_model();
     }
+    public doctor_window(){}
     private void fill_table_model(){
         dtm.setRowCount(0);
         try{
@@ -69,7 +72,7 @@ public class doctor_window extends javax.swing.JFrame {
           }
         }
         catch (SQLException ex) {
-             Logger.getLogger(admin_window.class.getName()).log(Level.SEVERE, null, ex);
+             Logger.getLogger(doctor_window.class.getName()).log(Level.SEVERE, null, ex);
         }
         
     }
@@ -354,9 +357,8 @@ public class doctor_window extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void diagnose_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_diagnose_btnActionPerformed
-        diagnose_pet new_window = new diagnose_pet();
         this.dispose();
-        new_window.setVisible(true);
+        new diagnose_pet(id_p,doctor_id).setVisible(true);
     }//GEN-LAST:event_diagnose_btnActionPerformed
 
     private void view_logs_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_view_logs_btnActionPerformed

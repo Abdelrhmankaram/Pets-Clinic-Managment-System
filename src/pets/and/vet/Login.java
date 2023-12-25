@@ -24,12 +24,12 @@ public class Login extends javax.swing.JFrame {
      * Creates new form Login
      */
     Connection con = null;
-
+String doc_id;
     public Login() {
         initComponents();
         this.setLocationRelativeTo(null);
         try {
-            con = DriverManager.getConnection("jdbc:mysql://localhost:3306/pet_and_vet", "root", "root");
+            con = DriverManager.getConnection("jdbc:mysql://localhost:3306/pet_and_vet", "root", "Root123456789@@");
 
         } catch (SQLException ex) {
             Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
@@ -333,6 +333,7 @@ public class Login extends javax.swing.JFrame {
                             admin_window next_window = new admin_window();
                             this.dispose();
                             next_window.setVisible(true);
+                            this.dispose();
                             found = true;
                             break;
                         }
@@ -352,9 +353,8 @@ public class Login extends javax.swing.JFrame {
                     ResultSet rs = stnt.executeQuery();
                     while (rs.next()) {
                         if (name.equals(rs.getString(2)) && pass.equals(rs.getString(3))) {
-                            doctor_window next_window = new doctor_window();
-                            this.dispose();
-                            next_window.setVisible(true);
+                            doc_id=String.valueOf(rs.getInt(1));
+                            new doctor_window(doc_id).setVisible(true);
                             found = true;
                             break;
                         }
