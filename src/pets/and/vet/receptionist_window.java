@@ -475,6 +475,11 @@ public class receptionist_window extends javax.swing.JFrame {
 
     private void edit_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_edit_btnActionPerformed
         // TODO add your handling code here:
+       int index = table.getSelectedRow();
+        if(index==-1){
+        JOptionPane.showMessageDialog(this, "Please Select a record");
+        }
+        else{
         String fname=fname_tf.getText();
         String lname=lname_tf.getText();
         String ema=email_tf.getText();
@@ -512,6 +517,7 @@ public class receptionist_window extends javax.swing.JFrame {
          } catch (SQLException ex) {
              Logger.getLogger(receptionist_window.class.getName()).log(Level.SEVERE, null, ex);
          }
+        }
     }//GEN-LAST:event_edit_btnActionPerformed
 
     private void viewlogs_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewlogs_btnActionPerformed
@@ -564,6 +570,11 @@ public class receptionist_window extends javax.swing.JFrame {
 
     private void delete_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_delete_btnActionPerformed
         // TODO add your handling code here:
+        int index = table.getSelectedRow();
+        if(index==-1){
+        JOptionPane.showMessageDialog(this, "Please Select a record");
+        }
+        else {
         fname_tf.setText("");
          lname_tf.setText("");
          color_tf.setText("");
@@ -581,6 +592,7 @@ public class receptionist_window extends javax.swing.JFrame {
             Logger.getLogger(admin_window.class.getName()).log(Level.SEVERE, null, ex);
         }
         fill_table_model();
+        }
     }//GEN-LAST:event_delete_btnActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed

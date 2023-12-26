@@ -431,6 +431,7 @@ public class admin_window extends javax.swing.JFrame {
         String address = address_tf.getText().toString();
         String u_name = username_tf.getText().toString();
         String pass = password_tf.getText().toString();
+        if(!f_name.isEmpty() && !l_name.isEmpty()  && !age.isEmpty()  && !phone.isEmpty() && !email.isEmpty() && !address.isEmpty() && !u_name.isEmpty()&& !pass.isEmpty() && (male_btn.isSelected()==true ||female_btn.isSelected()==true)&& (recep_btn.isSelected()==true ||doctor_btn.isSelected()==true)){
         String gender;
         String type;
         if(female_btn.isSelected())
@@ -461,21 +462,22 @@ public class admin_window extends javax.swing.JFrame {
             Logger.getLogger(admin_window.class.getName()).log(Level.SEVERE, null, ex);
         }
         fill_table_model();
-        first_name_tf.setText("");
-        last_name_tf.setText("");
-        email_tf.setText("");
-        address_tf.setText("");
-        phone_tf.setText("");
-        age_tf.setText("");
-        username_tf.setText("");
-        password_tf.setText("");
-        female_btn.setSelected(false);
-        male_btn.setSelected(false);
-        doctor_btn.setSelected(false);
-        recep_btn.setSelected(false);
+        admin_window w=new admin_window();
+        this.dispose();
+        w.setVisible(true);
+        }
+        else {
+        JOptionPane.showMessageDialog(this, "Please, Fill all cells");
+        }
     }//GEN-LAST:event_add_btnActionPerformed
 
     private void edit_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_edit_btnActionPerformed
+        int index = table.getSelectedRow();
+        if(index==-1){
+        JOptionPane.showMessageDialog(this, "Please Select a record");
+        
+        }
+else {
         String f_name = first_name_tf.getText().toString();
         String l_name = last_name_tf.getText().toString();
         String email = email_tf.getText().toString();
@@ -513,6 +515,10 @@ public class admin_window extends javax.swing.JFrame {
             Logger.getLogger(admin_window.class.getName()).log(Level.SEVERE, null, ex);
         }
         fill_table_model();
+        admin_window w=new admin_window();
+        this.dispose();
+        w.setVisible(true);
+        }
     }//GEN-LAST:event_edit_btnActionPerformed
 
     private void recep_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_recep_btnActionPerformed
@@ -528,6 +534,11 @@ public class admin_window extends javax.swing.JFrame {
     }//GEN-LAST:event_male_btnActionPerformed
 
     private void delete_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_delete_btnActionPerformed
+        int index = table.getSelectedRow();
+        if(index==-1){
+        JOptionPane.showMessageDialog(this, "Please Select a record");
+        }
+        else{
         first_name_tf.setText("");
         last_name_tf.setText("");
         email_tf.setText("");
@@ -548,6 +559,10 @@ public class admin_window extends javax.swing.JFrame {
             Logger.getLogger(admin_window.class.getName()).log(Level.SEVERE, null, ex);
         }
         fill_table_model();
+        admin_window w=new admin_window();
+        this.dispose();
+        w.setVisible(true);
+        }
     }//GEN-LAST:event_delete_btnActionPerformed
 
     private void back_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_back_btnActionPerformed

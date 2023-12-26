@@ -61,6 +61,25 @@ public class view_logs extends javax.swing.JFrame {
         }
         
     }
+//     private void search(String x)
+//    {
+//        dtm.setRowCount(0);
+//        try{
+//          PreparedStatement stmt= con.prepareStatement("select a.pet_id, a.own_first_name, a.phone, a.kind, d.pet_condintion, a.gender from appointments a join diagnosis d on a.pet_id = d.pet_id where own_first_name like \""+x+"%\"");
+//          ResultSet res=stmt.executeQuery();
+//          while(res.next())
+//          {
+//              //cl_ids.add(res.getInt());
+//              dtm.addRow(new Object[]{res.getInt(1),res.getString(2),res.getString(3),res.getString(7),res.getString(6),res.getString(5)});
+//              tbl_show.setModel(dtm);
+//          }
+//        }
+//        catch (SQLException ex) {
+//          //   Logger.getLogger(addclient.class.getName()).log(Level.SEVERE, null, ex);
+//            System.out.println(ex);
+//        }
+//        
+//    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -79,17 +98,12 @@ public class view_logs extends javax.swing.JFrame {
         table = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        ownername_tf = new javax.swing.JTextField();
-        jLabel5 = new javax.swing.JLabel();
-        id_tf = new javax.swing.JTextField();
-        type_tf = new javax.swing.JTextField();
-        jLabel6 = new javax.swing.JLabel();
-        g2 = new javax.swing.JRadioButton();
-        g1 = new javax.swing.JRadioButton();
-        jLabel10 = new javax.swing.JLabel();
         jButton4 = new javax.swing.JButton();
         modify = new javax.swing.JButton();
         pets = new javax.swing.JButton();
+        jComboBox1 = new javax.swing.JComboBox<>();
+        search_tf = new javax.swing.JTextField();
+        clear_btn = new javax.swing.JButton();
 
         popupMenu1.setLabel("popupMenu1");
 
@@ -132,39 +146,7 @@ public class view_logs extends javax.swing.JFrame {
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel2.setText("ID");
-
-        jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jLabel5.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel5.setText("Owner's Name");
-
-        jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jLabel6.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel6.setText("Type");
-
-        buttonGroup1.add(g2);
-        g2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        g2.setForeground(new java.awt.Color(204, 255, 255));
-        g2.setText("Female");
-
-        buttonGroup1.add(g1);
-        g1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        g1.setForeground(new java.awt.Color(204, 255, 255));
-        g1.setText("Male");
-        g1.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                g1MouseClicked(evt);
-            }
-        });
-        g1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                g1ActionPerformed(evt);
-            }
-        });
-
-        jLabel10.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jLabel10.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel10.setText("Gender");
+        jLabel2.setText("Search By");
 
         jButton4.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jButton4.setForeground(new java.awt.Color(16, 76, 71));
@@ -193,6 +175,28 @@ public class view_logs extends javax.swing.JFrame {
             }
         });
 
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "ID", "Owner Name", "Type", "Condition", "Gender" }));
+        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBox1ActionPerformed(evt);
+            }
+        });
+
+        search_tf.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                search_tfActionPerformed(evt);
+            }
+        });
+
+        clear_btn.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        clear_btn.setForeground(new java.awt.Color(16, 76, 71));
+        clear_btn.setText("Clear");
+        clear_btn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                clear_btnActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -202,32 +206,25 @@ public class view_logs extends javax.swing.JFrame {
                 .addGap(28, 28, 28)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 297, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(395, 395, 395)
-                        .addComponent(pets, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(modify))
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 297, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(395, 395, 395)
+                                .addComponent(pets, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(modify))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel2)
+                                .addGap(18, 18, 18)
+                                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(171, 171, 171)
+                                .addComponent(search_tf, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addContainerGap(82, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGroup(jPanel1Layout.createSequentialGroup()
-                            .addComponent(jLabel10)
-                            .addGap(36, 36, 36)
-                            .addComponent(g1)
-                            .addGap(32, 32, 32)
-                            .addComponent(g2))
-                        .addGroup(jPanel1Layout.createSequentialGroup()
-                            .addComponent(jLabel2)
-                            .addGap(18, 18, 18)
-                            .addComponent(id_tf, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(30, 30, 30)
-                            .addComponent(jLabel5)
-                            .addGap(18, 18, 18)
-                            .addComponent(ownername_tf, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(32, 32, 32)
-                            .addComponent(jLabel6)
-                            .addGap(18, 18, 18)
-                            .addComponent(type_tf, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(82, Short.MAX_VALUE))
+                        .addGap(18, 18, 18)
+                        .addComponent(clear_btn, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(895, 895, 895))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -237,23 +234,17 @@ public class view_logs extends javax.swing.JFrame {
                     .addComponent(jLabel1)
                     .addComponent(modify, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(pets, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(36, 36, 36)
+                .addGap(30, 30, 30)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(id_tf, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2)
-                    .addComponent(ownername_tf, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel5)
-                    .addComponent(type_tf, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel6))
-                .addGap(43, 43, 43)
+                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(search_tf, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(102, 102, 102)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(g1)
-                    .addComponent(g2)
-                    .addComponent(jLabel10))
-                .addGap(38, 38, 38)
-                .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(clear_btn, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 334, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 349, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -270,48 +261,94 @@ public class view_logs extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void g1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_g1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_g1ActionPerformed
-
-    private void g1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_g1MouseClicked
-//        if(g1.isSelected()){
-//            g1.=false;
-//        }
-    }//GEN-LAST:event_g1MouseClicked
-
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        String id = "", owner = "", type = "";
-        if(id_tf.getText().toString().isEmpty()){
-            id = "select pet_id from pets";
+       String search_by=jComboBox1.getSelectedItem().toString();
+       String ss=search_tf.getText();
+       if (search_by== "ID"){
+       dtm.setRowCount(0);
+        try{
+          PreparedStatement stmt= con.prepareStatement("select a.pet_id, a.own_first_name, a.phone, a.kind, d.pet_condintion, a.gender from appointments a join diagnosis d on a.pet_id = d.pet_id where a.pet_id like \""+ss+"%\"");
+          ResultSet res=stmt.executeQuery();
+          while(res.next())
+          {
+              //cl_ids.add(res.getInt());
+              dtm.addRow(new Object[]{res.getInt(1),res.getString(2),res.getString(3),res.getString(4),res.getString(5),res.getString(6)});
+              table.setModel(dtm);
+          }
         }
-        else{
-            id = "select pet_id from pets where pet_id = " + id_tf.getText().toString();
+        catch (SQLException ex) {
+          //   Logger.getLogger(addclient.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println(ex);
         }
-        
-        if(ownername_tf.getText().toString().isEmpty()){
-            owner = "select owner_id from owners";
+       }
+       else if(search_by== "Owner Name"){
+       dtm.setRowCount(0);
+        try{
+          PreparedStatement stmt= con.prepareStatement("select a.pet_id, a.own_first_name, a.phone, a.kind, d.pet_condintion, a.gender from appointments a join diagnosis d on a.pet_id = d.pet_id where own_first_name like \""+ss+"%\"");
+          ResultSet res=stmt.executeQuery();
+          while(res.next())
+          {
+              //cl_ids.add(res.getInt());
+              dtm.addRow(new Object[]{res.getInt(1),res.getString(2),res.getString(3),res.getString(4),res.getString(5),res.getString(6)});
+              table.setModel(dtm);
+          }
         }
-        else{
-            owner = "select owner_id from owners where first_name = " + ownername_tf.getText().toString();
+        catch (SQLException ex) {
+          //   Logger.getLogger(addclient.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println(ex);
         }
-        
-        if(type_tf.getText().toString().isEmpty()){
-            type = "select kind from pets";
+       }
+       else if(search_by== "Type"){
+       dtm.setRowCount(0);
+        try{
+          PreparedStatement stmt= con.prepareStatement("select a.pet_id, a.own_first_name, a.phone, a.kind, d.pet_condintion, a.gender from appointments a join diagnosis d on a.pet_id = d.pet_id where kind like \""+ss+"%\"");
+          ResultSet res=stmt.executeQuery();
+          while(res.next())
+          {
+              //cl_ids.add(res.getInt());
+              dtm.addRow(new Object[]{res.getInt(1),res.getString(2),res.getString(3),res.getString(4),res.getString(5),res.getString(6)});
+              table.setModel(dtm);
+          }
         }
-        else{
-            type = "select kind from pets" + type_tf.getText().toString();
+        catch (SQLException ex) {
+          //   Logger.getLogger(addclient.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println(ex);
         }
-        
-        String gender;
-        
-        if(g1.isSelected()){
-            gender = "Male";
+       }
+       else if(search_by== "Gender"){
+       dtm.setRowCount(0);
+        try{
+          PreparedStatement stmt= con.prepareStatement("select a.pet_id, a.own_first_name, a.phone, a.kind, d.pet_condintion, a.gender from appointments a join diagnosis d on a.pet_id = d.pet_id where gender like \""+ss+"%\"");
+          ResultSet res=stmt.executeQuery();
+          while(res.next())
+          {
+              //cl_ids.add(res.getInt());
+              dtm.addRow(new Object[]{res.getInt(1),res.getString(2),res.getString(3),res.getString(4),res.getString(5),res.getString(6)});
+              table.setModel(dtm);
+          }
         }
-        else {
-            gender = "Female";
+        catch (SQLException ex) {
+          //   Logger.getLogger(addclient.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println(ex);
         }
-        
+       }
+       else if(search_by== "Condition"){
+       dtm.setRowCount(0);
+        try{
+          PreparedStatement stmt= con.prepareStatement("select a.pet_id, a.own_first_name, a.phone, a.kind, d.pet_condintion, a.gender from appointments a join diagnosis d on a.pet_id = d.pet_id where condition like \""+ss+"%\"");
+          ResultSet res=stmt.executeQuery();
+          while(res.next())
+          {
+              //cl_ids.add(res.getInt());
+              dtm.addRow(new Object[]{res.getInt(1),res.getString(2),res.getString(3),res.getString(4),res.getString(5),res.getString(6)});
+              table.setModel(dtm);
+          }
+        }
+        catch (SQLException ex) {
+          //   Logger.getLogger(addclient.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println(ex);
+        }
+       }
 //        PreparedStatement st = con.prepareStatement("select p.pet_id, o.first_name, o.phone, p.kind, d.diagnose, p.gender from ")
         
     }//GEN-LAST:event_jButton4ActionPerformed
@@ -341,6 +378,20 @@ public class view_logs extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "wrong password");
         }
     }//GEN-LAST:event_petsActionPerformed
+
+    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jComboBox1ActionPerformed
+
+    private void search_tfActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_search_tfActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_search_tfActionPerformed
+
+    private void clear_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clear_btnActionPerformed
+        // TODO add your handling code here:
+        search_tf.setText("");
+        fill_table_model();
+    }//GEN-LAST:event_clear_btnActionPerformed
 
     /**
      * @param args the command line arguments
@@ -386,24 +437,19 @@ public class view_logs extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup buttonGroup1;
-    private javax.swing.JRadioButton g1;
-    private javax.swing.JRadioButton g2;
-    private javax.swing.JTextField id_tf;
+    private javax.swing.JButton clear_btn;
     private javax.swing.JButton jButton4;
+    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField jTextField3;
     private javax.swing.JButton modify;
-    private javax.swing.JTextField ownername_tf;
     private javax.swing.JButton pets;
     private java.awt.PopupMenu popupMenu1;
+    private javax.swing.JTextField search_tf;
     private javax.swing.JTable table;
-    private javax.swing.JTextField type_tf;
     // End of variables declaration//GEN-END:variables
 }

@@ -390,6 +390,9 @@ String doc_id;
                 }
             }
         }
+        else {
+        JOptionPane.showMessageDialog(this, "Please, Fill all cells");
+        }
     }//GEN-LAST:event_login_btnActionPerformed
 
     private void password_tfFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_password_tfFocusLost

@@ -58,7 +58,25 @@ public class doctor_window extends javax.swing.JFrame {
         dtm.addColumn("Color");
         fill_table_model();
     }
-    public doctor_window(){}
+    public doctor_window(){initComponents();
+    this.setLocationRelativeTo(null);
+        try {
+            con = DriverManager.getConnection("jdbc:mysql://localhost:3306/pet_and_vet", "root", "root");
+
+        } catch (SQLException ex) {
+            Logger.getLogger(doctor_window.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        dtm=new DefaultTableModel();
+        dtm.addColumn("ID");
+        dtm.addColumn("First Name");
+        dtm.addColumn("Last Name");
+        dtm.addColumn("Pet's Type");
+        dtm.addColumn("Age");
+        dtm.addColumn("Gender");
+        dtm.addColumn("Phone");
+        dtm.addColumn("Color");
+        fill_table_model();
+    }
     private void fill_table_model(){
         dtm.setRowCount(0);
         try{
@@ -348,8 +366,14 @@ public class doctor_window extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void diagnose_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_diagnose_btnActionPerformed
+        int index = table.getSelectedRow();
+        if(index==-1){
+        JOptionPane.showMessageDialog(this, "Please Select a record");
+        }
+        else {
         this.dispose();
         new diagnose_pet(id_p,doctor_id).setVisible(true);
+        }
     }//GEN-LAST:event_diagnose_btnActionPerformed
 
     private void view_logs_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_view_logs_btnActionPerformed

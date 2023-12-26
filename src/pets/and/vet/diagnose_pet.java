@@ -323,6 +323,8 @@ public class diagnose_pet extends javax.swing.JFrame {
         // TODO add your handling code here:
         String diagnose=diagnose_tf.getText();
         String condition=condition_tf.getText();
+        String id=petid_tf.getText();
+        if(!diagnose.isEmpty() && !condition.isEmpty()&& !id.isEmpty()){
         try {
             PreparedStatement stmt= con.prepareStatement("insert into diagnosis values(?,?,?)");
             stmt.setString(1, pett_id);
@@ -350,6 +352,17 @@ public class diagnose_pet extends javax.swing.JFrame {
         condition_tf.setText("");
         dtm.setRowCount(0);
         fill_table_model2();
+            try {
+                PreparedStatement stmt= con.prepareStatement("delete from appointments where pet_id=?");
+                stmt.setString(1, pett_id);
+                stmt.executeUpdate();
+            } catch (SQLException ex) {
+                Logger.getLogger(diagnose_pet.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        else {
+        JOptionPane.showMessageDialog(this, "Please, Diagnose pet");
+        }
     }//GEN-LAST:event_done_btnActionPerformed
 
     private void back_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_back_btnActionPerformed
